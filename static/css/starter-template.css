@@ -10,3 +10,26 @@ body {
 	padding: 50px;
 	text-align: center;
 }
+
+.social {
+    height: 40px;
+   
+}
+
+.divsocial {
+    display: block;
+    margin: auto;
+        
+}
+
+.pic {
+    height: 130px;
+    width: 130px;
+}
+
+.teampic {
+    margin: auto;
+    padding-top: 50px;
+    padding-bottom: 10px;
+    height: 400px;
+}
