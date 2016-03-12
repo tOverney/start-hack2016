@@ -86,3 +86,7 @@ ENV/
 
 # IDE
 .idea
+*.sw?
+
+# generated
+db.sqlite3
