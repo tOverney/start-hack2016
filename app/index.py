@@ -1,7 +1,10 @@
-from django.shortcuts import render
 from django.http import HttpResponse, Http404
+from django.shortcuts import render
+from django.http import JsonResponse
 from newspaper import Article
+
 from api import LanguageTranslation
+
 
 def index(request):
 
@@ -12,7 +15,7 @@ def index(request):
 
 
 def result(request):
-    url = "";
+    url = ""
     try:
       url = request.POST['url']
     except KeyError:
@@ -29,5 +32,6 @@ def result(request):
     context = {'title': article.title,
         'author': (" % ").join(article.authors), 'text': text,
         'transtxt': translated}
-
+    if request.is_ajax():
+        return JsonResponse(context)
     return render(request, 'app/decomposed.html', context)

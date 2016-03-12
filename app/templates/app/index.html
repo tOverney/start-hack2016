@@ -1,34 +1,40 @@
-
 {% load staticfiles %}
 
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Carousel</title>
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 </head>
 <body>
-    <div class="content">
-<div class="page_section">
+<div class="content">
+    <div class="page_section">
         <div>
-        <div>
-        <h1>Article to study</h1>
-        <form action="/app/decomposed/" method="post" class="pure-form pure-form-aligned">
-            <fieldset>
-                <div class="pure-controls">
-                    <textarea class="pure-input-1-2" name="url"
-                        placeholder="http://"></textarea>
-                </div>
-                <div class="pure-controls">
-                    {% csrf_token %}
-                    <input type="submit" class="pure-button pure-button-primary" value="Study"/>
-                </div>
-            </fieldset>
-        </form>
+            <div>
+                <h1>Article to study</h1>
+                <form id="url-form" action="/app/decomposed/" method="post" class="pure-form pure-form-aligned">
+                    <fieldset>
+                        <div class="pure-controls">
+                    <textarea id="input-url" class="pure-input-1-2" name="url"
+                              placeholder="http://"></textarea>
+                        </div>
+                        <div class="pure-controls">
+                            {% csrf_token %}
+                            <input type="submit" class="pure-button pure-button-primary" value="Study"/>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div id="original"></div>
+            <div id="translated"></div>
         </div>
     </div>
+    <script   src="https://code.jquery.com/jquery-2.2.1.min.js"
+              integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+              crossorigin="anonymous">
+    </script>
+    <script src="{% static "scripts/main.js" %}" />
+    <script src="http://purecss.io/combo/1.18.13?/js/ui.js"></script>
 </div>
-
-<script src="http://purecss.io/combo/1.18.13?/js/ui.js"></script>
 </body>
 </html>
