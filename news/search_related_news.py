@@ -14,6 +14,6 @@ class SearchRelatedNews:
 
 		for art in jsonArticles['d']['results']:
 			acc.append(Article(art['__metadata']['uri']))
-			print(art['Title'])
+			
 
 		return acc

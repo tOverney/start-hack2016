@@ -13,7 +13,7 @@ class BingNews(BingBase):
     def getNews(self, keywords, market):
         formatRes = 'json'
         ans = self._post(keywords, formatRes, market)
-        print(ans.text)
+        
         return ans.json()
 
    
