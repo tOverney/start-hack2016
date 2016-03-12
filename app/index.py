@@ -58,7 +58,11 @@ def result(request):
     market = languagesBing[dest_lang]
     
     relatedArticles = SearchRelatedNews().get(keywords, market)
-    relatedArticles = [{'title': article.title, 'text': article.text, 'url': article.url} for article in relatedArticles]
+    relatedArticles = [{'title': article.title,
+                        'text': article.text,
+                        'url': article.url,
+                        'image': article.top_img,
+                        } for article in relatedArticles]
 
     context = {'title': article.title,
         'author': (" % ").join(article.authors), 'text': text,
