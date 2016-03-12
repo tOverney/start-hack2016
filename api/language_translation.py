@@ -13,7 +13,8 @@ class LanguageTranslation(Base):
 
     def translate(self, text: str, dest_lang: str = 'en') -> str:
         lang = TextBlob(text).detect_language()
-
+        if lang == dest_lang:
+            return text
         if lang != 'en' and dest_lang != 'en':
             text = self.atomic_translate(text, lang, 'en')
             lang = 'en';

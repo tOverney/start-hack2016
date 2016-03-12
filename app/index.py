@@ -70,3 +70,6 @@ def concept_info(request):
     if request.is_ajax():
         return JsonResponse({})
     return render(request, 'app/decomposed.html', concept)
+
+def contact(request):
+    return render(request, 'app/contact.html', {})
