@@ -1,6 +1,7 @@
 from typing import Iterable
 
 from api.base import Base
+from textblob import TextBlob
 
 
 class LanguageTranslation(Base):
@@ -11,15 +12,17 @@ class LanguageTranslation(Base):
         super().__init__(module=module, username=username, password=password)
 
     def translate(self, text: str) -> str:
-        json = {
-            'text': text,
-            'source': self.identify(text),
-            'target': 'en',
-        }
+        lang = TextBlob(text).detect_language()
+        if lang != 'en':
+            json = {
+                'text': text,
+                'source': lang,
+                'target': 'en',
+            }
+            ans = self._post(path='translate', json=json)
 
-        ans = self._post(path='translate', json=json)
-
-        return ans.text.strip()
+            return ans.text.strip()
+        return text
 
     def identify(self, text: str) -> str:
         headers = {'content-type': 'text/plain'}
