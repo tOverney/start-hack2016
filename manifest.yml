@@ -1,0 +1,12 @@
+applications:
+- path: .
+  memory: 1536M
+  instances: 1
+  domain: eu-gb.mybluemix.net
+  name: Carousel
+  host: Carousel
+  disk_quota: 1024M
+  services:
+  - Language Translation-ky
+  - Concept Insights-1x
+  - Text to Speech-le
