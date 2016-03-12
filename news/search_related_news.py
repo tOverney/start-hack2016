@@ -1,8 +1,8 @@
+from newspaper import Article
 from typing import List
 
 from api.bing_news import BingNews
-from newspaper import Article
-import json
+
 
 class SearchRelatedNews:
 

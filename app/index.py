@@ -1,11 +1,12 @@
-from django.http import HttpResponse, Http404
+from django.http import Http404
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from newspaper import Article
 from textblob import TextBlob
 from textblob_fr import PatternTagger, PatternAnalyzer
-from django.views.decorators.csrf import csrf_exempt
-from api import LanguageTranslation, Api
+
+from api import LanguageTranslation, API
 
 languages = {
     'en': "English",
@@ -16,6 +17,7 @@ languages = {
     'ja': "Japanese",
     'pt': "Portugese",
 }
+
 
 def index(request):
     context = {}
@@ -45,9 +47,9 @@ def result(request):
 
     translated = LanguageTranslation().translate(text, dest_lang)
     context = {'title': article.title,
-        'author': (" % ").join(article.authors), 'text': text,
-        'transtxt': translated, 'nouns': TextBlob(text).noun_phrases,
-        'transnouns': TextBlob(translated).noun_phrases}
+               'author': (" % ").join(article.authors), 'text': text,
+               'transtxt': translated, 'nouns': TextBlob(text).noun_phrases,
+               'transnouns': TextBlob(translated).noun_phrases}
     if request.is_ajax():
         return JsonResponse(context)
     return render(request, 'app/decomposed.html', context)
@@ -55,15 +57,11 @@ def result(request):
 
 @csrf_exempt
 def concept_info(request):
-    print(request.POST)
-    concept = ""
-    try:
-        concept = request.POST['concept']
-    except KeyError:
-        concept = ""
+    if 'concept' not in request.POST:
+        return HttpResponseBadRequest()
 
-    if concept == "":
-        raise Http404("No concept!")
+    concept = request.POST['concept']
+    ret = API.text_insight.concepts(concept)
 
     api = Api()
     concept = api.text_insight.concepts(concept)

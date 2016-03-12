@@ -1,5 +1,6 @@
-from api.bing_news import BingNews
 import json
+
+from api.bing_news import BingNews
 
 keywords = ['EPFL', 'lausanne']
 market = 'en-GB'

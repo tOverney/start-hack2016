@@ -1,7 +1,6 @@
-from typing import Iterable
+from textblob import TextBlob
 
 from api.base import Base
-from textblob import TextBlob
 
 
 class LanguageTranslation(Base):
