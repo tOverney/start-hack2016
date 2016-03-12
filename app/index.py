@@ -66,13 +66,8 @@ def result(request):
     context = {'title': article.title,
         'author': (" % ").join(article.authors), 'text': text,
         'transtxt': translated, 'nouns': TextBlob(text).noun_phrases,
-<<<<<<< Updated upstream
-        'transnouns': TextBlob(translated).noun_phrases}
-    #if request.is_ajax():
-    #    return JsonResponse(context)
-    return render(request, 'app/decomposed.html', context)
-=======
-        'transnouns': TextBlob(translated).noun_phrases, 'related': relatedArticles}
+        'transnouns': TextBlob(translated).noun_phrases,
+        'related': relatedArticles}
 
     if request.is_ajax():
         return JsonResponse(context)
