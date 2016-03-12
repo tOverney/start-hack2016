@@ -1,15 +1,19 @@
-from django.http import Http404, HttpResponse
-from django.http import JsonResponse, HttpResponseBadRequest
+from random import shuffle
+
+from django.http import Http404
+from django.http import HttpResponse
+from django.http import HttpResponseBadRequest
 from django.shortcuts import render
+from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 from newspaper import Article
 from textblob import TextBlob
 from textblob_fr import PatternTagger, PatternAnalyzer
-from django.template import loader, Context
 
-from api import LanguageTranslation, API
+from api import API
+from api import LanguageTranslation
 from api.base import ApiError
-from random import shuffle
+from news.search_related_news import SearchRelatedNews
 
 languages = {
     'en': "English",
@@ -21,6 +25,15 @@ languages = {
     'pt': "Portugese",
 }
 
+languagesBing = {
+    'en': 'en-GB',
+    'fr': 'fr-CH',
+    'de': 'de-CH',
+    'es': 'es-ES',
+    'it': 'it-IT',
+    'ja': 'ja-JP',
+    'pt': 'pt-PT'
+}
 
 def index(request):
     context = {}
@@ -49,12 +62,31 @@ def result(request):
         source = TextBlob(text, pos_tagger=PatternTagger(), analyzer=PatternAnalyzer())
 
     translated = LanguageTranslation().translate(text, dest_lang)
+    keywords = selectKeywords(TextBlob(translated).noun_phrases, 4)
+    print(keywords)
+
+    market = languagesBing[dest_lang]
+
+    relatedArticles = SearchRelatedNews().get(keywords, market)
+    print(relatedArticles[0].title)
+    relatedArticles = [{'title': article.title,
+                        'text': article.text,
+                        'url': article.url ,
+                        'image': article.top_img if article.top_img else '/app/static/images/defaultpaper.jpg',
+                        } for article in relatedArticles]
+
     context = {'title': article.title,
                'author': (" % ").join(article.authors), 'text': text,
                'transtxt': translated, 'nouns': TextBlob(text).noun_phrases,
-               'transnouns': TextBlob(translated).noun_phrases}
+               'transnouns': TextBlob(translated).noun_phrases, 'related': relatedArticles}
 
-    context['transnouns'] = [ noun if ' ' not in noun else shuffle(noun.split(' ')) for noun in context['transnouns'] ]
+    context['transnouns'] = [ noun if ' ' not in noun
+                              else noun.split(' ')
+                              for noun in context['transnouns'] ]
+
+    for noun in context['transnouns']:
+        if isinstance(noun, list):
+            shuffle(noun)
 
     if request.is_ajax():
         t = loader.select_template(["articles.html"])
@@ -75,5 +107,12 @@ def concept_info(request):
         return HttpResponseBadRequest("no such concept")
     return render(request, 'app/decomposed.html', ret)
 
+
 def contact(request):
     return render(request, 'app/contact.html', {})
+
+def selectKeywords(words, nb):
+    keys = []
+    for i in range(0, 4):
+        keys.append(words.pop(i))
+    return keys
