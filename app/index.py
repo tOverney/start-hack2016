@@ -1,13 +1,15 @@
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from newspaper import Article
 from textblob import TextBlob
 from textblob_fr import PatternTagger, PatternAnalyzer
+from django.template import loader, Context
 
 from api import LanguageTranslation, API
 from api.base import ApiError
+from random import shuffle
 
 languages = {
     'en': "English",
@@ -51,8 +53,13 @@ def result(request):
                'author': (" % ").join(article.authors), 'text': text,
                'transtxt': translated, 'nouns': TextBlob(text).noun_phrases,
                'transnouns': TextBlob(translated).noun_phrases}
+
+    context['transnouns'] = [ noun if ' ' not in noun else shuffle(noun.split(' ')) for noun in context['transnouns'] ]
+
     if request.is_ajax():
-        return JsonResponse(context)
+        t = loader.select_template(["articles.html"])
+        return HttpResponse(t.render(context))
+
     return render(request, 'app/decomposed.html', context)
 
 

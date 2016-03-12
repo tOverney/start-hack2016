@@ -8,18 +8,8 @@ $("#url-form").on('submit', function(e) {
     csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
     dest_lang: $("select[name='dest_lang']").val()
   }, function(data){
-    var transtext = data.transtxt;
-    data.transnouns = _.map(data.transnouns, function(nouns) {
-      return nouns.indexOf(' ') !== -1 ? _.shuffle(nouns.split(' '))[0] : nouns;
-    });
-    console.log(data.transnouns);
-    data.transnouns.forEach(function(noun) {
-      var re = new RegExp(" (" + noun + ") ", "g");
-      transtext = transtext.replace(re, " <a href=\"#\" class=\"word-help\">$1</a> ");
-    });
+    $("#article_template").html(data);
     $("#input-url").text("");
-    $("#original").text(data.text);
-    $("#translated").html(transtext);
     SetFunctionTagCallbacks();
   }).fail( function() {
     console.log("An error occured");
