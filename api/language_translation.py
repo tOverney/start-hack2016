@@ -13,8 +13,8 @@ class LanguageTranslation(Base):
     def translate(self, text: str) -> str:
         json = {
             'text': text,
-            'source': 'en',
-            'target': 'fr',
+            'source': self.identify(text),
+            'target': 'en',
         }
 
         ans = self._post(path='translate', json=json)
