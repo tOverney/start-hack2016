@@ -1,6 +1,7 @@
-from django.conf.urls import include, url
-from . import index
+from django.conf.urls import url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+from . import index
 
 urlpatterns = [
     url(r'^$', index.index, name = 'index'),

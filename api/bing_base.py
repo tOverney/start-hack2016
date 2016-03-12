@@ -1,5 +1,4 @@
 import requests
-from typing import Any, Mapping, Optional, Tuple
 
 
 class BingBase:

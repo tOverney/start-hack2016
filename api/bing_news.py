@@ -1,7 +1,5 @@
 from api.bing_base import BingBase
 
-from api.base import Base
-
 
 class BingNews(BingBase):
     def __init__(self) -> None:
