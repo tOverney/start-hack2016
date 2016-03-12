@@ -1,3 +1,5 @@
+from typing import Iterable
+
 from api.base import Base
 
 
@@ -18,3 +20,9 @@ class LanguageTranslation(Base):
         ans = self._post(path='translate', json=json)
 
         return ans.text.strip()
+
+    def identify(self, text: str) -> str:
+        headers = {'content-type': 'text/plain'}
+        ans = self._post(path='identify', data=text, headers=headers)
+
+        return ans.text
