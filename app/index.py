@@ -1,16 +1,12 @@
-from django.http import HttpResponse, Http404
-from django.shortcuts import render
+from django.http import Http404
 from django.http import JsonResponse
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from newspaper import Article
 from textblob import TextBlob
-<<<<<<< Updated upstream
-from api import LanguageTranslation
-=======
-from textblob_fr import PatternTagger, PatternAnalyzer
-from django.views.decorators.csrf import csrf_exempt
-from news.search_related_news import SearchRelatedNews
+
 from api import LanguageTranslation, Api
->>>>>>> Stashed changes
+from news.search_related_news import SearchRelatedNews
 
 languages = {
     'en': "English",
@@ -62,16 +58,11 @@ def result(request):
     market = languagesBing[dest_lang]
     
     relatedArticles = SearchRelatedNews().get(keywords, market)
+    relatedArticles = [{'title': article.title, 'text': article.text, 'url': article.url} for article in relatedArticles]
 
     context = {'title': article.title,
         'author': (" % ").join(article.authors), 'text': text,
         'transtxt': translated, 'nouns': TextBlob(text).noun_phrases,
-<<<<<<< Updated upstream
-        'transnouns': TextBlob(translated).noun_phrases}
-    #if request.is_ajax():
-    #    return JsonResponse(context)
-    return render(request, 'app/decomposed.html', context)
-=======
         'transnouns': TextBlob(translated).noun_phrases, 'related': relatedArticles}
 
     if request.is_ajax():
@@ -103,4 +94,3 @@ def selectKeywords(words, nb):
     for i in range(0, 4):
         keys.append(words.pop(i))
     return keys
->>>>>>> Stashed changes
