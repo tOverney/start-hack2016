@@ -9,7 +9,6 @@ else SERVER_PORT="$VCAP_APP_PORT";
 fi
 
 pip install --upgrade pip
-pip install newspaper3k
 
 echo [$0] port is------------------- $SERVER_PORT
 
