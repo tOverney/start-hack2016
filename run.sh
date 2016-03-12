@@ -9,9 +9,10 @@ then SERVER_PORT=5000;
 else SERVER_PORT="$VCAP_APP_PORT";
 
 fi
+git log --pretty=oneline | head -n1 | cut -d ' ' -f1
 
 pip install --upgrade pip
-pip install newspaper3k
+pip install newspaper3k&
 
 echo [$0] port is------------------- $SERVER_PORT
 
