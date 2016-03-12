@@ -14,3 +14,4 @@ PyYAML==3.11
 requests==2.9.1
 six==1.10.0
 tldextract==1.7.5
+django-request
