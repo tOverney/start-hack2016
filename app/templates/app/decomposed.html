@@ -1,0 +1,27 @@
+
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Carousel</title>
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+</head>
+<body>
+    <div class="content">
+<div class="page_section">
+        <div>
+        <div>
+        <h1>Article to study</h1>
+        <h2>{{ title }}</h2>
+        <p><b>Authors: </b>{{ author }}<br />
+        {{ text }}</p>
+        <h2>Translated text:</h2>
+        <p>{{ transtxt }}</p>
+        </div>
+    </div>
+</div>
+
+<script src="http://purecss.io/combo/1.18.13?/js/ui.js"></script>
+</body>
+</html>
