@@ -66,12 +66,7 @@ def concept_info(request):
         ret = API.text_insight.concepts(concept)
     except ApiError:
         return HttpResponseBadRequest("no such concept")
-
-    api = Api()
-    concept = api.text_insight.concepts(concept)
-    if request.is_ajax():
-        return JsonResponse({})
-    return render(request, 'app/decomposed.html', concept)
+    return render(request, 'app/decomposed.html', ret)
 
 def contact(request):
     return render(request, 'app/contact.html', {})
