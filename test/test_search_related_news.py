@@ -2,8 +2,8 @@ from api.bing_news import BingNews
 from news.search_related_news import SearchRelatedNews
 import json
 
-keywords = ['EPFL', 'lausanne']
-market = 'en-GB'
+keywords = ['champignon', 'moisissure']
+market = 'fr-CH'
 
 listArticle = SearchRelatedNews().get(keywords, market)
 
