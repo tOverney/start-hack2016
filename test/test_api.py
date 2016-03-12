@@ -15,3 +15,6 @@ class ApiTest(unittest.TestCase):
     def test_synthesize(self):
         self.api.text_to_speech.synthesize('Hello my friend')
 
+    def test_insight(self):
+        print(self.api.text_insight.search("aes"))
+

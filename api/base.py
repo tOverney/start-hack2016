@@ -8,13 +8,15 @@ class Base:
         self.username = username
         self.password = password
 
-    def __request(self, method: str, path: str, json: Optional[Mapping[str, Any]] = None):
+    def __request(self, method: str, path: str, json: Optional[Mapping[str, Any]] = None, data: Optional[Mapping[str, str]] = None):
         url = 'https://{}.watsonplatform.net/{}/{}'.format(self.module[0], self.module[1], path)
         auth = (self.username, self.password)
 
-        ans = requests.request(method=method, url=url, auth=auth, json=json)
-
+        ans = requests.request(method=method, url=url, auth=auth, json=json, data=data)
         return ans
 
     def _post(self, path: str, json: Mapping[str, Any]):
         return self.__request(method='POST', path=path, json=json)
+
+    def _get(self, path: str, data: Optional[Mapping[str, str]]):
+        return self.__request(method='GET', path=path, data=data)
