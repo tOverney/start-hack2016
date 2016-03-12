@@ -32,15 +32,19 @@ class ApiTest(unittest.TestCase):
 
         self.assertGreaterEqual(len(ret), 3)
 
-    def test_insight_concepts(self):
-        ret = self.api.text_insight.concepts('IBM')
+    def __test_concepts(self, name):
+        ret = self.api.text_insight.concepts(name)
 
-        self.assertEquals(ret.label, 'IBM')
+        self.assertEquals(ret.label, name)
 
-    def test_insight_concepts_weird_return(self):
-        ret = self.api.text_insight.concepts('Ben')
+    def test_insight_concepts_full_object(self):
+        self.__test_concepts('IBM')
 
-        self.assertEquals(ret.label, 'Ben')
+    def test_insight_concepts_missing_link(self):
+        self.__test_concepts('Ben')
+
+    def test_insight_concepts_missing_ontology(self):
+        self.__test_concepts('Soldiers')
 
     def test_insight_concepts_not_resuts(self):
         self.assertRaises(ApiError, self.api.text_insight.concepts, '__random_string__')

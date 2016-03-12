@@ -13,8 +13,8 @@ class Concept:
 
 
 class ConceptDetails:
-    def __init__(self, abstract: str, id: str, label: str, link: str, ontology: Iterable[str],
-                 concept_type: str, thumbnail: Optional[str] = None) -> None:
+    def __init__(self, abstract: str, id: str, label: str, link: str, concept_type: str,
+                 ontology: Optional[Iterable[str]] = None, thumbnail: Optional[str] = None) -> None:
         self.abstract = abstract
         self.id = id
         self.label = label

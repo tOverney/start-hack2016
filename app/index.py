@@ -101,11 +101,13 @@ def concept_info(request):
         return HttpResponseBadRequest('no "concept+ in request')
 
     concept = request.POST['concept']
+    concept_en = API.language_translation.translate(concept, dest_lang='en')
+    print(concept_en)
     try:
-        ret = API.text_insight.concepts(concept)
+        ret = API.text_insight.concepts(concept_en)
     except ApiError:
         return HttpResponseBadRequest("no such concept")
-    return render(request, 'app/decomposed.html', ret)
+    return render(request, 'app/decomposed.html', ret.__dict__)
 
 
 def contact(request):
