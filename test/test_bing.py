@@ -1,11 +1,19 @@
 import json
+import unittest
 
 from api.bing_news import BingNews
+from news.search_related_news import SearchRelatedNews
 
-keywords = ['EPFL', 'lausanne']
-market = 'en-GB'
-format = 'json'
 
-json = BingNews().getNews(keywords, market)
+class TestBing(unittest.TestCase):
+    def test_get_news(self):
+        keywords = ['EPFL', 'lausanne']
+        market = 'en-GB'
 
-print(json)
+        BingNews().getNews(keywords, market)
+
+    def test_related_news(self):
+        keywords = ['champignon', 'moisissure']
+        market = 'fr-CH'
+
+        SearchRelatedNews().get(keywords, market)
