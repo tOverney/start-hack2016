@@ -6,4 +6,5 @@ market = 'en-GB'
 format = 'json'
 
 json = BingNews().getNews(keywords, market)
+
 print(json)
