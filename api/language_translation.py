@@ -15,11 +15,10 @@ class LanguageTranslation(Base):
 
         if lang != 'en' and dest_lang != 'en':
             text = self.atomic_translate(text, lang, 'en')
-            lang = 'en';
+            lang = 'en'
         if lang != dest_lang:
             return self.atomic_translate(text, lang, dest_lang)
         return text
-
 
     def atomic_translate(self, text: str, src: str, dst: str) -> str:
         json = {
@@ -29,10 +28,9 @@ class LanguageTranslation(Base):
         }
         ans = self._post(path='translate', json=json)
 
-        if(ans.status_code == 200):
+        if (ans.status_code == 200):
             return ans.text.strip()
         return str(TextBlob(text).translate(from_lang=src, to=dst))
-
 
     def identify(self, text: str) -> str:
         headers = {'content-type': 'text/plain'}
