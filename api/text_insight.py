@@ -3,13 +3,23 @@ from typing import Iterable
 from api.base import Base
 
 
-class Match:
+class Concept:
     def __init__(self, id: str, label: str) -> None:
         self.id = id
         self.label = label
 
     def __repr__(self):
-        return 'Match({id!r}, {label!r})'.format(**self.__dict__)
+        return 'Concept({id!r}, {label!r})'.format(**self.__dict__)
+
+
+class Annotation:
+    def __init__(self, concept: Concept, score: float, text_index: Iterable[int]) -> None:
+        self.concept = concept
+        self.score = score
+        self.text_index = text_index
+
+    def __repr__(self):
+        return 'Annotation({concept!r}, {score!r}, {text_index!r})'.format(**self.__dict__)
 
 
 class TextInsight(Base):
@@ -22,12 +32,25 @@ class TextInsight(Base):
         self.account = "wikipedia"
         self.graph = "en-latest"
 
-    def search(self, search: str) -> Iterable[Match]:
-        path = 'graphs/{}/{}/label_search'.format(self.account, self.graph)
+    def search(self, search: str) -> Iterable[Concept]:
+        path = self.__get_path('label_search')
         params = {
             'query': search
         }
 
         ans = self._get(path=path, params=params)
 
-        return {Match(match['id'], match['label']) for match in ans.json()['matches']}
+        return {Concept(**match) for match in ans.json()['matches']}
+
+    def annotate_text(self, body: str) -> Iterable[Annotation]:
+        path = self.__get_path('annotate_text')
+        json = {'body': body}
+        headers = {'Content-Type': 'text/plain'}
+
+        ans = self._post(path=path, json=json, headers=headers)
+
+        return {Annotation(Concept(**annotation['concept']), annotation['score'], annotation['text_index']) for
+                annotation in ans.json()['annotations']}
+
+    def __get_path(self, endpoint: str) -> str:
+        return 'graphs/{}/{}/{}'.format(self.account, self.graph, endpoint)
