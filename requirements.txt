@@ -1,2 +1,3 @@
 requests
 Django==1.9.4
+Newspaper3k
