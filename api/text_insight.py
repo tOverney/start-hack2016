@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Iterable, Optional
 
 from api.base import Base
 
@@ -13,8 +13,8 @@ class Concept:
 
 
 class ConceptDetails:
-    def __init__(self, abstract: str, id: str, label: str, link: str, ontology: Iterable[str], thumbnail: str,
-                 concept_type: str) -> None:
+    def __init__(self, abstract: str, id: str, label: str, link: str, ontology: Iterable[str],
+                 concept_type: str, thumbnail: Optional[str] = None) -> None:
         self.abstract = abstract
         self.id = id
         self.label = label
@@ -77,7 +77,6 @@ class TextInsight(Base):
         ans = self._get(path=path)
 
         kwargs = ans.json()
-        print(kwargs)
         kwargs['concept_type'] = kwargs.pop('type')
 
         return ConceptDetails(**kwargs)

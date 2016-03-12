@@ -2,6 +2,12 @@ import requests
 from typing import Any, Mapping, Optional, Tuple
 
 
+class ApiError(Exception):
+    def __init__(self, error: str, url: str) -> None:
+        self.error = error
+        self.url = url
+
+
 class Base:
     def __init__(self, module: Tuple[str, str], username: str, password: str):
         self.module = module
@@ -16,6 +22,11 @@ class Base:
         auth = (self.username, self.password)
 
         ans = requests.request(method=method, url=url, auth=auth, json=json, data=data, params=params, headers=headers)
+
+        if ans.text.startswith('{'):
+            ans_json = ans.json()
+            if 'error' in ans_json:
+                raise ApiError(**ans_json)
 
         return ans
 

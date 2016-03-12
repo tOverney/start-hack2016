@@ -7,6 +7,7 @@ from textblob import TextBlob
 from textblob_fr import PatternTagger, PatternAnalyzer
 
 from api import LanguageTranslation, API
+from api.base import ApiError
 
 languages = {
     'en': "English",
@@ -58,10 +59,13 @@ def result(request):
 @csrf_exempt
 def concept_info(request):
     if 'concept' not in request.POST:
-        return HttpResponseBadRequest()
+        return HttpResponseBadRequest('no "concept+ in request')
 
     concept = request.POST['concept']
-    ret = API.text_insight.concepts(concept)
+    try:
+        ret = API.text_insight.concepts(concept)
+    except ApiError:
+        return HttpResponseBadRequest("no such concept")
 
     api = Api()
     concept = api.text_insight.concepts(concept)

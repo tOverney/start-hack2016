@@ -1,6 +1,7 @@
 import unittest
 
 from api import Api
+from api.base import ApiError
 
 
 class ApiTest(unittest.TestCase):
@@ -8,9 +9,9 @@ class ApiTest(unittest.TestCase):
         self.api = Api()
 
     def test_translate_translate(self):
-        ret = self.api.language_translation.translate('Hello my friend')
+        ret = self.api.language_translation.translate('Bonjour mon ami')
 
-        self.assertEquals(ret, 'Bonjour mon ami')
+        self.assertEquals(ret, 'Hello my friend')
 
     def test_translate_identify(self):
         ret = self.api.language_translation.identify('Hello my friend')
@@ -35,3 +36,11 @@ class ApiTest(unittest.TestCase):
         ret = self.api.text_insight.concepts('IBM')
 
         self.assertEquals(ret.label, 'IBM')
+
+    def test_insight_concepts_weird_return(self):
+        ret = self.api.text_insight.concepts('Ben')
+
+        self.assertEquals(ret.label, 'Ben')
+
+    def test_insight_concepts_not_resuts(self):
+        self.assertRaises(ApiError, self.api.text_insight.concepts, '__random_string__')
