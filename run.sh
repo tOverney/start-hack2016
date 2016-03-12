@@ -8,6 +8,8 @@ else SERVER_PORT="$VCAP_APP_PORT";
 
 fi
 
+pip install --upgrade pip
+
 echo [$0] port is------------------- $SERVER_PORT
 
 echo [$0] Starting Django Server...
