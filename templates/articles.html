@@ -4,15 +4,13 @@
             <div class="col-xs-8" >
                 <div style="height: 300px;
                         background: url('{{ related.0.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;"></div>
-                <a href="{{ related.0.url }}"><h3>{{ related.0.title }}</h3></a>
-                {{ related.0.text }}
+                {{ related.0.title  }}(<a href="{{ related.0.url }}">Original</a>)
             </div>
             {% if related|length >= 2 %}
-                <div class="col-xs-8" >
+                <div class="col-xs-4" >
                     <div style="height: 300px;
                             background: url('{{ related.1.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;"></div>
-                    <a href="{{ related.1.url }}"><h3>{{ related.1.title }}</h3></a>
-                    {{ related.1.text }}
+                    {{ related.1.title  }}(<a href="{{ related.1.url }}">Original</a>)
                 </div>
             {% endif %}
         {% endif %}
@@ -21,16 +19,16 @@
 <div>
     {% if related|length >= 3 %}
         <div class="col-xs-4" id="article3">
-            <div style="height: 300px; background: url('{{ related.2.images }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;"></div>
-            <h3>{{ related.3.title }}</h3>
+            <div style="height: 300px; background: url('{{ related.3.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;"></div>
+            {{ related.3.title  }}(<a href="{{ related.3.url }}">Original</a>)
         </div>
-        {%  if related|length == 4 %}
+        {%  if related|length >= 4 %}
             <div class="col-xs-8" id="article4">
-                <div style="height: 300px; background: url('{{ related.4.images }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;"></div>
-                <h3>{{ related.4.title  }}</h3>
+                <div style="height: 300px; background: url('{{ related.4.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;"></div>
+                {{ related.4.title  }}(<a href="{{ related.4.url }}">Original</a>)
             </div>
         {%  endif %}
     {%  endif %}
 </div>
-<div class="col-xs-6" id="original">{{ text }}</div>
-<div class="col-xs-6" id="translated">{{ transtxt }}</div>
+<div class="col-xs-6" id="original"></div>
+<div class="col-xs-6" id="translated"></div>

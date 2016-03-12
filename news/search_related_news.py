@@ -9,15 +9,15 @@ class SearchRelatedNews:
     def get(self, keywords, market) -> List[Article]:
         jsonArticles = BingNews().getNews(keywords, market)
         acc = []
+        arr = jsonArticles['d']['results'][:6]
+        for art in arr:
+            try:
+                tmp = Article(art['Url'])
+                tmp.download()
+                tmp.parse()
+            except:
+                continue
 
-        for art in jsonArticles['d']['results']:
-            tmp = Article(art['Url'])
-            if not tmp.url:
-                tmp.url = art['Url']
-            if not tmp.title:
-                print(art)
-                tmp.title = art['Title']
             acc.append(tmp)
 
-
-        return acc
+        return list(filter(lambda x: len(x.title.strip()) != 0, acc))
