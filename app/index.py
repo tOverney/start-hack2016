@@ -2,7 +2,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.http import JsonResponse
 from newspaper import Article
-
+from textblob import TextBlob
 from api import LanguageTranslation
 
 
@@ -31,7 +31,8 @@ def result(request):
     translated = LanguageTranslation().translate(text)
     context = {'title': article.title,
         'author': (" % ").join(article.authors), 'text': text,
-        'transtxt': translated}
+        'transtxt': translated, 'nouns': TextBlob(text).noun_phrases,
+               'transnouns': TextBlob(translated).noun_phrases}
     if request.is_ajax():
         return JsonResponse(context)
     return render(request, 'app/decomposed.html', context)

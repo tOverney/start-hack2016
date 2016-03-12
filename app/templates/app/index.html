@@ -62,9 +62,8 @@
 
         <form id="url-form" action="/app/decomposed/" method="post" class="pure-form pure-form-aligned">
             <fieldset>
-                <div class="pure-controls">
-                    <textarea id="input-url" class="pure-input-1-2" name="url"
-                              placeholder="http://"></textarea>
+                <div class="input-group">
+                    <input id="input-url" name="url" type="text" class="form-control" placeholder="http://" aria-describedby="basic-addon1">
                 </div>
                 <div class="pure-controls">
                     {% csrf_token %}
@@ -87,7 +86,6 @@
           crossorigin="anonymous">
 </script>
 <script src="{% static "scripts/main.js" %}" />
-<script src="http://purecss.io/combo/1.18.13?/js/ui.js"></script>
 <script src="{%  static  "js/bootstrap.min.js" %}"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{%  static  "js/ie10-viewport-bug-workaround.js" %}"></script>

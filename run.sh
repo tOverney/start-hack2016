@@ -14,6 +14,8 @@ git log --pretty=oneline | head -n1 | cut -d ' ' -f1
 pip install --upgrade pip
 pip install newspaper3k&
 
+python -m textblob.download_corpora
+
 echo [$0] port is------------------- $SERVER_PORT
 
 echo [$0] Starting Django Server...
