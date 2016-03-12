@@ -1,0 +1,116 @@
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+
+    <title>Carousel</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="{%  static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{%  static "css/ie10-viewport-bug-workaround.css" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{%  static "css/starter-template.css" %}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="{%  static  "js/ie-emulation-modes-warning.js" %}"></script>
+    <link href="{%  static "css/jquery-ui.min.css" %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Carousel</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/app/about/">About</a></li>
+                <li class="active"><a href="/app/contact/">Contact</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1>Contact Us</h1>
+        <div class="col-xs-3" id="val">
+            <img src="http://www.photographyblogger.net/wp-content/uploads/2011/03/074.jpg" alt="photo_val" class="img-responsive" class="img-rounded">
+            <h3>Valérian Rousset</h3>
+        </div>
+        <div class="col-xs-3" id="aud">
+            <img src="http://www.photographyblogger.net/wp-content/uploads/2011/03/074.jpg" alt="photo_aul" class="img-responsive" class="img-rounded">
+            <h3>Audrey Loeffel</h3>
+        </div>
+        <div class="col-xs-3" id="gui">
+            <img src="http://www.photographyblogger.net/wp-content/uploads/2011/03/074.jpg" alt="photo_gui" class="img-responsive" class="img-rounded">
+            <h3>Guillaume Tournigand</h3>
+        </div>
+        <div class="col-xs-3" id="tri">
+            <img src="http://www.photographyblogger.net/wp-content/uploads/2011/03/074.jpg" alt="photo_tri" class="img-responsive" class="img-rounded">  
+            <h3>Tristan Overney</h3>
+        </div>
+    </div>
+
+</div><!-- /.container -->
+
+<div class="modal fade" id="hover" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: MathJax_Size4, sans-serif;"></div></div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script   src="https://code.jquery.com/jquery-2.2.1.min.js"
+          integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+          crossorigin="anonymous">
+</script>
+<script src="{% static "js/hoverintent.js" %}"></script>
+<script src="{% static "js/underscore.js" %}"></script>
+<script src="{% static "js/jquery-ui.min.js" %}"></script>
+<script src="{% static "scripts/main.js" %}" ></script>
+<script src="{%  static  "js/bootstrap.min.js" %}"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="{%  static  "js/ie10-viewport-bug-workaround.js" %}"></script>
+</body>
+</html>
