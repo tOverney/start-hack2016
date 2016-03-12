@@ -61,16 +61,18 @@
     <div class="starter-template">
         <h1>Learn a language with Carousel !</h1>
 
-        <form id="url-form" action="/app/decomposed/" method="post" class="pure-form pure-form-aligned">
-            <fieldset>
-                <div class="input-group">
-                    <input id="input-url" name="url" type="text" class="form-control" placeholder="http://" aria-describedby="basic-addon1">
-                </div>
-                <div class="pure-controls">
-                    {% csrf_token %}
-                    <input type="submit" class="pure-button pure-button-primary" value="Study"/>
-                </div>
-            </fieldset>
+        <form id="url-form" class="form-inline" action="/app/decomposed/" method="post">
+            <div class="form-group">
+                <label class="sr-only" for="url">Url</label>
+                <input class="form-control" id="input-url" name="url" type="text" placeholder="http://...">
+            </div>
+            <select class="form-control" name="dest_lang">
+                {% for key, value in targets.items %}
+                    <option value='{{ key }}'>{{ value }}</option>
+                {% endfor %}
+            </select>
+            {% csrf_token %}
+            <input type="submit" class="btn btn-default" value="Study"/>
         </form>
         <div class="col-xs-6" id="original"></div>
         <div class="col-xs-6" id="translated"></div>

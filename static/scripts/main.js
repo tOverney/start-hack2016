@@ -5,9 +5,9 @@ $("#url-form").on('submit', function(e) {
   e.preventDefault();
   $.post('/app/decomposed/', {
     url: $("#input-url").val(),
-    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+    csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
+    dest_lang: $("select[name='dest_lang']").val()
   }, function(data){
-    console.log(data);
     var transtext = data.transtxt;
     data.transnouns = _.map(data.transnouns, function(nouns) {
       return nouns.indexOf(' ') !== -1 ? _.shuffle(nouns.split(' '))[0] : nouns;

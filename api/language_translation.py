@@ -11,18 +11,29 @@ class LanguageTranslation(Base):
         password = 'omnw37f13fP4'
         super().__init__(module=module, username=username, password=password)
 
-    def translate(self, text: str) -> str:
+    def translate(self, text: str, dest_lang: str = 'en') -> str:
         lang = TextBlob(text).detect_language()
-        if lang != 'en':
-            json = {
-                'text': text,
-                'source': lang,
-                'target': 'en',
-            }
-            ans = self._post(path='translate', json=json)
 
-            return ans.text.strip()
+        if lang != 'en' and dest_lang != 'en':
+            text = self.atomic_translate(text, lang, 'en')
+            lang = 'en';
+        if lang != dest_lang:
+            return self.atomic_translate(text, lang, dest_lang)
         return text
+
+
+    def atomic_translate(self, text: str, src: str, dst: str) -> str:
+        json = {
+            'text': text,
+            'source': src,
+            'target': dst,
+        }
+        ans = self._post(path='translate', json=json)
+
+        if(ans.status_code == 200):
+            return ans.text.strip()
+        return str(TextBlob(text).translate(from_lang=src, to=dst))
+
 
     def identify(self, text: str) -> str:
         headers = {'content-type': 'text/plain'}
