@@ -71,7 +71,7 @@
                 <label class="sr-only" for="url">Url</label>
                 <input class="form-control" id="input-url" name="url" type="text" placeholder="http://...">
             </div>
-            <select class="form-control" name="dest_lang">
+            <select class="form-control" name="dest_lang" value='en'>
                 {% for key, value in targets.items %}
                     <option value='{{ key }}'>{{ value }}</option>
                 {% endfor %}
