@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 if [ -z "$VCAP_APP_PORT" ];
 
 then SERVER_PORT=5000;
