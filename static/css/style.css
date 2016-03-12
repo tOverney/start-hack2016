@@ -86,3 +86,7 @@ pre {
 	padding: 0;
 	margin: 0;
 }
+
+.no-close .ui-dialog-titlebar-close {
+	display: none;
+}

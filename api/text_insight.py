@@ -77,6 +77,7 @@ class TextInsight(Base):
         ans = self._get(path=path)
 
         kwargs = ans.json()
+        print(kwargs)
         kwargs['concept_type'] = kwargs.pop('type')
 
         return ConceptDetails(**kwargs)

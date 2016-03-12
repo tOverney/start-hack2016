@@ -24,6 +24,7 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="{%  static  "js/ie-emulation-modes-warning.js"%}"></script>
+    <link href="{%  static "css/jquery-ui.min.css" %}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -60,10 +61,10 @@
     <div class="starter-template">
         <h1>Learn a language with Carousel !</h1>
 
-        <form class="form-inline" action="/app/decomposed/" method="post">
+        <form id="url-form" class="form-inline" action="/app/decomposed/" method="post">
             <div class="form-group">
                 <label class="sr-only" for="url">Url</label>
-                <input class="form-control" id="url" name="url" type="text" placeholder="http://...">
+                <input class="form-control" id="input-url" name="url" type="text" placeholder="http://...">
             </div>
             <select class="form-control" name="dest_lang">
                 {% for key, value in targets.items %}
@@ -79,7 +80,24 @@
 
 </div><!-- /.container -->
 
+<div class="modal fade" id="hover" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: MathJax_Size4, sans-serif;"></div></div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -87,7 +105,10 @@
           integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
           crossorigin="anonymous">
 </script>
-<script src="{% static "scripts/main.js" %}" />
+<script src="{% static "js/hoverintent.js" %}"></script>
+<script src="{% static "js/underscore.js" %}"></script>
+<script src="{% static "js/jquery-ui.min.js" %}"></script>
+<script src="{% static "scripts/main.js" %}" ></script>
 <script src="{%  static  "js/bootstrap.min.js" %}"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{%  static  "js/ie10-viewport-bug-workaround.js" %}"></script>

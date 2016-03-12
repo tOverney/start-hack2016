@@ -11,6 +11,7 @@ else SERVER_PORT="$VCAP_APP_PORT";
 fi
 
 python -m textblob.download_corpora
+pip install -U textblob-fr
 
 echo [$0] port is------------------- $SERVER_PORT
 
