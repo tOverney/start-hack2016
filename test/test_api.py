@@ -25,3 +25,8 @@ class ApiTest(unittest.TestCase):
             'IBM Watson is a cognitive system enabling a new partnership between people and computers.')
 
         self.assertGreaterEqual(len(ret), 3)
+
+    def test_insight_concepts(self):
+        ret = self.api.text_insight.concepts('IBM')
+
+        self.assertEquals(ret.label, 'IBM')

@@ -12,6 +12,22 @@ class Concept:
         return 'Concept({id!r}, {label!r})'.format(**self.__dict__)
 
 
+class ConceptDetails:
+    def __init__(self, abstract: str, id: str, label: str, link: str, ontology: Iterable[str], thumbnail: str,
+                 concept_type: str) -> None:
+        self.abstract = abstract
+        self.id = id
+        self.label = label
+        self.link = link
+        self.ontology = ontology
+        self.thumbnail = thumbnail
+        self.concept_type = concept_type
+
+    def __repr__(self):
+        return 'ConceptDetails({abstract!r}, {id!r}, {label!r}, {ontology!r}, {thumbnail!r}, {concept_type!r})'.format(
+            **self.__dict__)
+
+
 class Annotation:
     def __init__(self, concept: Concept, score: float, text_index: Iterable[int]) -> None:
         self.concept = concept
@@ -31,6 +47,9 @@ class TextInsight(Base):
 
         self.account = "wikipedia"
         self.graph = "en-latest"
+
+    def __get_path(self, endpoint: str) -> str:
+        return 'graphs/{}/{}/{}'.format(self.account, self.graph, endpoint)
 
     def search(self, search: str) -> Iterable[Concept]:
         path = self.__get_path('label_search')
@@ -52,5 +71,12 @@ class TextInsight(Base):
         return {Annotation(Concept(**annotation['concept']), annotation['score'], annotation['text_index']) for
                 annotation in ans.json()['annotations']}
 
-    def __get_path(self, endpoint: str) -> str:
-        return 'graphs/{}/{}/{}'.format(self.account, self.graph, endpoint)
+    def concepts(self, concept_name: str) -> ConceptDetails:
+        path = self.__get_path('concepts/{}'.format(concept_name))
+
+        ans = self._get(path=path)
+
+        kwargs = ans.json()
+        kwargs['concept_type'] = kwargs.pop('type')
+
+        return ConceptDetails(**kwargs)
