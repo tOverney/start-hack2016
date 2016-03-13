@@ -30,7 +30,7 @@ class Base:
             ans_json = ans.json()
             if 'error' in ans_json:
                 print(ans_json)
-                raise ApiError(error=ans['error'])
+                raise ApiError(error=ans.json()['error'])
 
         return ans
 
