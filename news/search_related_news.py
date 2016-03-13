@@ -1,6 +1,6 @@
 from itertools import islice
 
-from newspaper import Article
+from newspaper import Article, ArticleException
 from typing import List
 
 from api.bing_news import BingNews
@@ -8,11 +8,14 @@ from api.bing_news import BingNews
 
 def _get_articles(results):
     for art in results:
-        tmp = Article(art['Url'])
-        tmp.download()
-        tmp.parse()
-        if tmp.title.strip():
-            yield tmp
+        try:
+            tmp = Article(art['Url'])
+            tmp.download()
+            tmp.parse()
+            if tmp.title.strip():
+                yield tmp
+        except ArticleException:
+            pass
 
 def _get_media_url(results):
     for video in results:
