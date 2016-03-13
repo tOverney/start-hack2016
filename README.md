@@ -5,9 +5,8 @@ The Python Starter demonstrates a simple, reusable Python web application.
 ## Run the app locally
 
 1. [Install Python][]
-2. Download and extract the starter code from the Bluemix UI
-3. cd into the app directory
-4. Run `python server.py`
-5. Access the running app in a browser at http://localhost:8000
+2. cd into the app directory
+3. Run `python manage.py runserver`
+4. Access the running app in a browser at http://localhost:8000
 
 [Install Python]: https://www.python.org/downloads/

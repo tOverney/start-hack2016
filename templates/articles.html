@@ -1,16 +1,24 @@
+<div id="article_text"></div>
+<h3>Read more about it...</h3>
 <div class="selection">
     <div class="row">
         {%  if related|length >= 1 %}
-            <div class="col-xs-8" >
-                <div style="height: 300px;
-                        background: url('{{ related.0.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;"></div>
-                {{ related.0.title  }}(<a href="{{ related.0.url }}">Original</a>)
+            <div class="col-xs-8">
+                <div class="article_click"
+                     style="height: 300px;
+                        background: url('{{ related.0.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
+                    <a href="#" class="fill-div" data-text="{{ related.0.text }}"></a>
+                </div>
+                {{ related.0.title  }} (<a target="_blank" href="{{ related.0.url }}">Original</a>)
             </div>
             {% if related|length >= 2 %}
                 <div class="col-xs-4" >
-                    <div style="height: 300px;
-                            background: url('{{ related.1.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;"></div>
-                    {{ related.1.title  }}(<a href="{{ related.1.url }}">Original</a>)
+                    <div class="article_click" style="height: 300px;
+                            background: url('{{ related.1.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
+
+                        <a href="#" class="fill-div" data-text="{{ related.1.text }}"></a>
+                    </div>
+                    {{ related.1.title  }} (<a target="_blank" href="{{ related.1.url }}">Original</a>)
                 </div>
             {% endif %}
         {% endif %}
@@ -19,13 +27,16 @@
 <div>
     {% if related|length >= 3 %}
         <div class="col-xs-4" id="article3">
-            <div style="height: 300px; background: url('{{ related.3.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;"></div>
-            {{ related.3.title  }}(<a href="{{ related.3.url }}">Original</a>)
-        </div>
+            <div class="article_click" style="height: 300px; background: url('{{ related.2.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;"><a href="#" class="fill-div" data-text="{{ related.2.text }}"></a></div>
+            {{ related.2.title  }} (<a target="_blank" href="{{ related.2.url }}">Original</a>)
+             </div>
         {%  if related|length >= 4 %}
             <div class="col-xs-8" id="article4">
-                <div style="height: 300px; background: url('{{ related.4.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;"></div>
-                {{ related.4.title  }}(<a href="{{ related.4.url }}">Original</a>)
+                <div class="article_click" style="height: 300px; background: url('{{ related.3.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
+                    <a href="#" class="fill-div" data-text="{{ related.3.text }}"></a>
+                </div>
+
+                {{ related.3.title  }} (<a target="_blank" href="{{ related.3.url }}">Original</a>)
             </div>
         {%  endif %}
     {%  endif %}

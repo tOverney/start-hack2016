@@ -1,3 +1,10 @@
+$body = $("body");
+
+$(document).on({
+  ajaxStart: function() { $body.addClass("loading");    },
+  ajaxStop: function() { $body.removeClass("loading"); }
+});
+
 var mouseX = 0;
 var mouseY = 0;
 
@@ -10,13 +17,18 @@ $("#url-form").on('submit', function(e) {
   }, function(data){
     $("#article_template").html(data);
     $("#input-url").text("");
-    SetFunctionTagCallbacks();
+    //SetFunctionTagCallbacks();
   }).fail( function() {
     console.log("An error occured");
   });
 });
 
+$('body').on('click', '.fill-div', function(e) {
+  e.preventDefault();e.stopPropagation();
+  $("#article_text").text($(this).attr('data-text'));
+});
 
+/*
 function CalculateOffset(e, isHorizontal)
 {
   var tresholdHor = 0.55;
@@ -98,3 +110,4 @@ function SetFunctionTagCallbacks()
     $(this).hide();
   });
 }
+*/
