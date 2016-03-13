@@ -1,4 +1,5 @@
 from random import shuffle
+from uuid import uuid4
 
 from django.http import Http404
 from django.http import HttpResponse
@@ -68,12 +69,17 @@ def result(request):
     translated = LanguageTranslation().translate(text, dest_lang)
     keywords = selectKeywords(TextBlob(translated).noun_phrases, 4)
 
+    audiodata = API.text_to_speech.synthesize(translated)
+    audio_id = str(uuid4())
+    with open(audio_id, 'wb') as out:
+        out.write(audiodata)
+
     market = languagesBing[dest_lang]
 
     relatedArticles = SearchRelatedNews().get(keywords, market)
     relatedArticles = [{'title': article.title,
                         'text': article.text,
-                        'url': article.url ,
+                        'url': article.url,
                         'image': article.top_img if article.top_img else '/app/static/images/defaultpaper.jpg',
                         } for article in relatedArticles]
 
@@ -82,9 +88,11 @@ def result(request):
                'transtxt': translated, 'nouns': TextBlob(text).noun_phrases,
                'transnouns': TextBlob(translated).noun_phrases, 'related': relatedArticles}
 
-    context['transnouns'] = [ noun if ' ' not in noun
-                              else noun.split(' ')
-                              for noun in context['transnouns'] ]
+    context['transnouns'] = [noun if ' ' not in noun
+                             else noun.split(' ')
+                             for noun in context['transnouns']]
+
+    context['audio_id'] = audio_id
 
     for noun in context['transnouns']:
         if isinstance(noun, list):
@@ -114,8 +122,19 @@ def concept_info(request):
 def contact(request):
     return render(request, 'app/contact.html', {})
 
+
 def selectKeywords(words, nb):
     keys = []
     for i in range(0, 3):
         keys.append(words.pop(i))
     return keys
+
+
+def audio(request):
+    response = HttpResponse(content_type='audio/x-wav')
+    uuid = request.path.split('/')[-1]
+
+    with open(uuid, 'rb') as file:
+        response.write(file.read())
+
+    return response

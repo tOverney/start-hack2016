@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^concepts/$', index.concept_info, name = 'concept_info'),
     url(r'^contact/$', index.contact, name = 'contact'),
     url(r'^about/$', index.contact, name = 'about'),
+    url(r'^audio/', index.audio, name = 'audio'),
 ] + staticfiles_urlpatterns()
