@@ -63,12 +63,10 @@ def result(request):
 
     translated = LanguageTranslation().translate(text, dest_lang)
     keywords = selectKeywords(TextBlob(translated).noun_phrases, 4)
-    print(keywords)
 
     market = languagesBing[dest_lang]
 
     relatedArticles = SearchRelatedNews().get(keywords, market)
-    print(relatedArticles[0].title)
     relatedArticles = [{'title': article.title,
                         'text': article.text,
                         'url': article.url ,
@@ -102,7 +100,6 @@ def concept_info(request):
 
     concept = request.POST['concept']
     concept_en = API.language_translation.translate(concept, dest_lang='en')
-    print(concept_en)
     try:
         ret = API.text_insight.concepts(concept_en)
     except ApiError:
