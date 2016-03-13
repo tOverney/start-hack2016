@@ -122,7 +122,7 @@ def selectKeywords(words, nb):
         keys.append(words.pop(i))
     return keys
 
-
+@csrf_exempt
 def audio(request):
     if request.POST:
         text = request.POST['text']

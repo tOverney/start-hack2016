@@ -1,8 +1,14 @@
 $body = $("body");
 
+var display = true;
+
 $(document).on({
-  ajaxStart: function() { $body.addClass("loading");    },
+  ajaxStart: function(a) { if(display) $body.addClass("loading");    },
   ajaxStop: function() { $body.removeClass("loading"); }
+});
+
+$(document).ajaxSend(function(event, jqxhr, settings ) {
+  display = settings.url !== "/app/decomposed/"
 });
 
 var mouseX = 0;
@@ -28,8 +34,10 @@ $('body').on('click', '.fill-div', function(e) {
   $("#article_text").text($(this).attr('data-text'));
   $("#article_title").text($(this).attr('data-title'));
   $("#article_image").attr('src', $(this).attr('data-image'));
-  $.post('/app/audio/', {'text': $(this).attr('data-text')}, function(data) {
-    console.log(data);
+  $("#player").hide();
+  $.post('/app/audio/', {text: $(this).attr('data-text')}, function(data) {
+    $("#player").attr('src', '/app/audio?audio_id=' + data).show();
+
   });
 });
 
