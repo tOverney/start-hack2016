@@ -13,7 +13,7 @@ class TextToSpeech(Base):
     def synthesize(self, text: str) -> Iterable[bytes]:
         path = 'synthesize'
         json = {
-            'text': text,
+            'text': text[:5000],
             'format': 'audio/wav',
         }
 
