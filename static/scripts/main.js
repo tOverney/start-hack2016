@@ -28,6 +28,9 @@ $('body').on('click', '.fill-div', function(e) {
   $("#article_text").text($(this).attr('data-text'));
   $("#article_title").text($(this).attr('data-title'));
   $("#article_image").attr('src', $(this).attr('data-image'));
+  $.post('/app/audio/', {'text': $(this).attr('data-text')}, function(data) {
+    console.log(data);
+  });
 });
 
 /*

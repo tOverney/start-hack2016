@@ -51,7 +51,7 @@ class TextInsight(Base):
     def __get_path(self, endpoint: str) -> str:
         return 'graphs/{}/{}/{}'.format(self.account, self.graph, endpoint)
 
-    def search(self, search: str) -> Iterable[Concept]:
+    def label_search(self, search: str) -> Iterable[Concept]:
         path = self.__get_path('label_search')
         params = {
             'query': search

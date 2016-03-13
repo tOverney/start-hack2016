@@ -15,5 +15,9 @@ class TestBing(unittest.TestCase):
     def test_related_news(self):
         keywords = ['champignon', 'moisissure']
         market = 'fr-CH'
-
         SearchRelatedNews().get(keywords, market)
+
+    def test_get_videos(self):
+        keywords = ['champignon', 'moisissure']
+        market = 'fr-CH'
+        SearchRelatedNews().getVideos(keywords, market)

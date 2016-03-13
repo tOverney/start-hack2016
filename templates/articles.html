@@ -3,10 +3,11 @@
     <img id="article_image"/>
     <p id="article_text"></p>
 </div>
+
 <h3>Read more about it...</h3>
 <div class="selection">
     <div class="row">
-        {%  if related|length >= 1 %}
+        {% if related|length >= 1 %}
             <div class="col-xs-8">
                 <div class="article_click"
                      style="height: 300px;
@@ -14,10 +15,10 @@
                     <a href="#" class="fill-div" data-text="{{ related.0.text }}"
                        data-title="{{ related.0.title }}" data-image="{{ related.0.image }}"></a>
                 </div>
-                {{ related.0.title  }} (<a target="_blank" href="{{ related.0.url }}">Original</a>)
+                {{ related.0.title }} (<a target="_blank" href="{{ related.0.url }}">Original</a>)
             </div>
             {% if related|length >= 2 %}
-                <div class="col-xs-4" >
+                <div class="col-xs-4">
                     <div class="article_click" style="height: 300px;
                             background: url('{{ related.1.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
 
@@ -26,7 +27,7 @@
                             data-title="{{ related.1.title }}"
                         data-image="{{ related.1.image }}"></a>
                     </div>
-                    {{ related.1.title  }} (<a target="_blank" href="{{ related.1.url }}">Original</a>)
+                    {{ related.1.title }} (<a target="_blank" href="{{ related.1.url }}">Original</a>)
                 </div>
             {% endif %}
         {% endif %}
@@ -44,10 +45,11 @@
                     <a href="#" class="fill-div" data-text="{{ related.3.text }}" data-title="{{ related.3.title }}" data-image="{{ related.3.image }}"></a>
                 </div>
 
-                {{ related.3.title  }} (<a target="_blank" href="{{ related.3.url }}">Original</a>)
+                {{ related.3.title }} (<a target="_blank" href="{{ related.3.url }}">Original</a>)
             </div>
-        {%  endif %}
-    {%  endif %}
+        {% endif %}
+    {% endif %}
 </div>
 <div class="col-xs-6" id="original"></div>
 <div class="col-xs-6" id="translated"></div>
+

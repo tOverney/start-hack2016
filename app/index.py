@@ -1,4 +1,5 @@
 from random import shuffle
+from uuid import uuid4
 
 from django.http import Http404
 from django.http import HttpResponse
@@ -6,7 +7,7 @@ from django.http import HttpResponseBadRequest
 from django.shortcuts import render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
-from newspaper import Article
+from newspaper import Article, ArticleException
 from textblob import TextBlob
 from textblob_fr import PatternTagger, PatternAnalyzer
 
@@ -35,6 +36,7 @@ languagesBing = {
     'pt': 'pt-PT'
 }
 
+
 def index(request):
     context = {}
 
@@ -53,9 +55,12 @@ def result(request):
     if url == "":
         raise Http404("No url given!")
 
-    article = Article(url)
-    article.download()
-    article.parse()
+    try:
+        article = Article(url)
+        article.download()
+        article.parse()
+    except ArticleException:
+        return HttpResponseBadRequest()
     text = article.text
     source = TextBlob(text)
     if source.detect_language() == 'fr':
@@ -69,7 +74,7 @@ def result(request):
     relatedArticles = SearchRelatedNews().get(keywords, market)
     relatedArticles = [{'title': article.title,
                         'text': article.text,
-                        'url': article.url ,
+                        'url': article.url,
                         'image': article.top_img if article.top_img else '/app/static/images/defaultpaper.jpg',
                         } for article in relatedArticles]
 
@@ -78,9 +83,9 @@ def result(request):
                'transtxt': translated, 'nouns': TextBlob(text).noun_phrases,
                'transnouns': TextBlob(translated).noun_phrases, 'related': relatedArticles}
 
-    context['transnouns'] = [ noun if ' ' not in noun
-                              else noun.split(' ')
-                              for noun in context['transnouns'] ]
+    context['transnouns'] = [noun if ' ' not in noun
+                             else noun.split(' ')
+                             for noun in context['transnouns']]
 
     for noun in context['transnouns']:
         if isinstance(noun, list):
@@ -110,8 +115,25 @@ def concept_info(request):
 def contact(request):
     return render(request, 'app/contact.html', {})
 
+
 def selectKeywords(words, nb):
     keys = []
-    for i in range(0, 4):
+    for i in range(0, 3):
         keys.append(words.pop(i))
     return keys
+
+
+def audio(request):
+    response = HttpResponse(content_type='audio/x-wav')
+    text = request.POST['text']
+
+    audiodata = API.text_to_speech.synthesize(text)
+
+    uuid = str(uuid4())
+    with open(uuid, 'wb') as out:
+        out.write(audiodata)
+
+    with open(uuid, 'rb') as file:
+        response.write(file.read())
+
+    return response
