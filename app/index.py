@@ -124,16 +124,20 @@ def selectKeywords(words, nb):
 
 
 def audio(request):
-    response = HttpResponse(content_type='audio/x-wav')
-    text = request.POST['text']
+    if request.POST:
+        text = request.POST['text']
+        audiodata = API.text_to_speech.synthesize(text)
 
-    audiodata = API.text_to_speech.synthesize(text)
+        uuid = str(uuid4())
+        with open(uuid, 'wb') as out:
+            out.write(audiodata)
 
-    uuid = str(uuid4())
-    with open(uuid, 'wb') as out:
-        out.write(audiodata)
+        return HttpResponse(uuid)
+    else:
+        response = HttpResponse(content_type='audio/x-wav')
+        uuid = request.GET['audio_id']
 
-    with open(uuid, 'rb') as file:
-        response.write(file.read())
+        with open(uuid, 'rb') as file:
+            response.write(file.read())
 
-    return response
+        return response
