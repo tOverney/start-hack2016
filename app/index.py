@@ -94,6 +94,8 @@ def result(request):
 
     context['audio_id'] = audio_id
 
+    context['videos'] = SearchRelatedNews().getVideos(keywords, market)
+
     for noun in context['transnouns']:
         if isinstance(noun, list):
             shuffle(noun)
