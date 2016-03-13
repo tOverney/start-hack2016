@@ -17,6 +17,8 @@ $("#url-form").on('submit', function(e) {
   }, function(data){
     $("#article_template").html(data);
     $("#input-url").text("");
+    $("#instr").hide();
+    $("#intro").hide();
     //SetFunctionTagCallbacks();
   }).fail( function() {
     console.log("An error occured");
