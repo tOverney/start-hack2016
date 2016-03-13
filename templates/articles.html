@@ -5,7 +5,6 @@
     <audio controls id="player" style="display: none"></audio>
 </div>
 
-
 <h3>Read more about it...</h3>
 <div class="selection">
 
@@ -23,10 +22,10 @@
                 <div class="titlegrid">  {{ related.0.title  }} (<a target="_blank" href="{{ related.0.url }}" style="color:c7ede5">Original</a>)</div>
 
             </div>
-            {% if related|length >= 2 %}
-                <div class="col-xs-4">
-                    <div class="article_click" style="height: 300px;
-                            background: url('{{ related.1.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
+        {% if related|length >= 2 %}
+        <div class="col-xs-4">
+            <div class="article_click" style="height: 300px;
+            background: url('{{ related.1.image }}') center no-repeat;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
 
                         <a href="#" class="fill-div"
                            data-text="{{ related.1.text }}"
@@ -41,7 +40,8 @@
         {% endif %}
     </div>
 </div>
-<div>
+<div class="Section">
+    <div class="row line">
     {% if related|length >= 3 %}
         <div class="col-xs-4" id="article3">
 
@@ -62,4 +62,12 @@
             </div>
         {% endif %}
     {% endif %}
+    </div>
+</div>
+
+<h3>Watch about it...</h3>
+<div class="Section">
+    {% for video_url in videos %}
+<iframe width="367" height="207" src="{{ video_url }}" frameborder="0" allowfullscreen></iframe>
+{% endfor %}
 </div>

@@ -21,7 +21,7 @@ def _get_media_url(results):
     for video in results:
         tmp = video['MediaUrl']
         if "youtube" in tmp:
-          yield tmp
+          yield "https://www.youtube.com/embed/" + tmp.split('=')[1]
 
 class SearchRelatedNews:
     def get(self, keywords, market) -> List[Article]:

@@ -87,6 +87,8 @@ def result(request):
                              else noun.split(' ')
                              for noun in context['transnouns']]
 
+    context['videos'] = SearchRelatedNews().getVideos(keywords, market)
+
     for noun in context['transnouns']:
         if isinstance(noun, list):
             shuffle(noun)
