@@ -60,11 +60,10 @@
     <div class="starter-template">
         <div class="intro">
             <img class="logo" src="{% static "images/logo.png" %}">
-            <br>
-            <br>
+            <br/>
+            <br/>
             <h1>Learn a language with Carousel !</h1>
-            <br>
-            <br>
+            <br/>
             <p>You want to learn about a specific topic? You want to learn a new language aswell?<br />
                 Give us the url of an article in your mother tongue and we'll find you
                 Articles on that topic in the language you want to learn!<br />
@@ -76,9 +75,13 @@
                 <label class="sr-only" for="url">Url</label>
                 <input class="form-control" id="input-url" name="url" type="text" placeholder="http://..." size="50">
             </div>
-            <select class="form-control" name="dest_lang" value='en'>
+            <select class="form-control" name="dest_lang">
                 {% for key, value in targets.items %}
-                    <option value='{{ key }}'>{{ value }}</option>
+                    {% if key == 'en' %}
+                        <option selected="selected" value='{{ key }}'>{{ value }}</option>
+                    {% else %}
+                        <option value='{{ key }}'>{{ value }}</option>
+                    {% endif %}
                 {% endfor %}
             </select>
             {% csrf_token %}
@@ -86,10 +89,10 @@
         </form>
         
         <b>How does it work ?</b>
-        <br>
-        1. Read an article in your language.<br>
-        2. Copy the link and choose the language you want ot learn.<br>
-        3. You get articles about the same topic !
+        <br/>
+        1. Read an article in your language.<br/>
+        2. Copy the link and choose the language you want to learn.<br/>
+        3. You get articles and videos about the same topic !
         
         <div id="article_template">
 
