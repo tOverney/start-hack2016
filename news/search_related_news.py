@@ -14,6 +14,11 @@ def _get_articles(results):
         if tmp.title.strip():
             yield tmp
 
+def _get_media_url(results):
+    for video in results:
+        tmp = video['MediaUrl']
+        if "youtube" in tmp:
+          yield tmp
 
 class SearchRelatedNews:
     def get(self, keywords, market) -> List[Article]:
@@ -21,7 +26,8 @@ class SearchRelatedNews:
         arr = jsonArticles['d']['results']
         return islice(_get_articles(arr), 6)
 
-    def getVideo(self, keywords, market) -> List[Article]:
-        jsonArticles = BingNews().getVideo(keywords, market)
-        arrr = jsonArticles['d']['results']
-        return islice(_get_articles(arr), 6)
+    def getVideos(self, keywords, market) -> List[str]:
+        keywords.append("youtube")
+        jsonArticles = BingNews().getVideos(keywords, market)
+        arr = jsonArticles['d']['results']
+        return list(islice(_get_media_url(arr), 3))

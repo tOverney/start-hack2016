@@ -112,6 +112,6 @@ def contact(request):
 
 def selectKeywords(words, nb):
     keys = []
-    for i in range(0, 4):
+    for i in range(0, 3):
         keys.append(words.pop(i))
     return keys
