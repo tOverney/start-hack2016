@@ -6,7 +6,7 @@ from django.http import HttpResponseBadRequest
 from django.shortcuts import render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
-from newspaper import Article
+from newspaper import Article, ArticleException
 from textblob import TextBlob
 from textblob_fr import PatternTagger, PatternAnalyzer
 
@@ -35,6 +35,7 @@ languagesBing = {
     'pt': 'pt-PT'
 }
 
+
 def index(request):
     context = {}
 
@@ -53,9 +54,12 @@ def result(request):
     if url == "":
         raise Http404("No url given!")
 
-    article = Article(url)
-    article.download()
-    article.parse()
+    try:
+        article = Article(url)
+        article.download()
+        article.parse()
+    except ArticleException:
+        return HttpResponseBadRequest()
     text = article.text
     source = TextBlob(text)
     if source.detect_language() == 'fr':
