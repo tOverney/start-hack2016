@@ -20,3 +20,8 @@ class SearchRelatedNews:
         jsonArticles = BingNews().getNews(keywords, market)
         arr = jsonArticles['d']['results']
         return islice(_get_articles(arr), 6)
+
+    def getVideo(self, keywords, market) -> List[Article]:
+        jsonArticles = BingNews().getVideo(keywords, market)
+        arrr = jsonArticles['d']['results']
+        return islice(_get_articles(arr), 6)

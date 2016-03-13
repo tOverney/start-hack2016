@@ -65,7 +65,7 @@
             <h1>Learn a language with Carousel !</h1>
             <br>
             <br>
-            <p>You want to learn about a specific article? You want to learn a new language aswell?<br />
+            <p>You want to learn about a specific topic? You want to learn a new language aswell?<br />
                 Give us the url of an article in your mother tongue and we'll find you
                 Articles on that topic in the language you want to learn!<br />
                 Don't worry too, we'll do everything to help you understand those articles.<br/>
@@ -74,7 +74,7 @@
         <form id="url-form" class="form-inline" action="/app/decomposed/" method="post">
             <div class="form-group">
                 <label class="sr-only" for="url">Url</label>
-                <input class="form-control" id="input-url" name="url" type="text" placeholder="http://...">
+                <input class="form-control" id="input-url" name="url" type="text" placeholder="http://..." size="50">
             </div>
             <select class="form-control" name="dest_lang" value='en'>
                 {% for key, value in targets.items %}
@@ -82,8 +82,15 @@
                 {% endfor %}
             </select>
             {% csrf_token %}
-            <input type="submit" class="button" value="Study"/>
+            <input type="submit" class="btn btn-default" value="Study" style="background-color:#2eb397; color:white;"/>
         </form>
+        
+        <b>How does it work ?</b>
+        <br>
+        1. Read an article in your language.<br>
+        2. Copy the link and choose the language you want ot learn.<br>
+        3. You get articles about the same topic !
+        
         <div id="article_template">
 
         </div>
