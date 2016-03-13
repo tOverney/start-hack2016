@@ -3,7 +3,10 @@ from typing import Any, Mapping, Optional, Tuple
 
 
 class ApiError(Exception):
-    def __init__(self, error: str, url: str) -> None:
+    def __init__(self, error: str, url: Optional[str] = None, code: Optional[int] = None,
+                 code_description: Optional[str] = None) -> None:
+        self.code_description = code_description
+        self.code = code
         self.error = error
         self.url = url
 
@@ -26,7 +29,8 @@ class Base:
         if ans.text.startswith('{'):
             ans_json = ans.json()
             if 'error' in ans_json:
-                raise ApiError(**ans_json)
+                print(ans_json)
+                raise ApiError(error=ans['error'])
 
         return ans
 
