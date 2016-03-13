@@ -9,5 +9,10 @@ class BingNews(BingBase):
 
     def getNews(self, keywords, market):
         formatRes = 'json'
-        ans = self._post(keywords, formatRes, market)
+        ans = self._post(keywords, formatRes, market, "News")
+        return ans.json()
+
+    def getVideos(self, keywords, market):
+        formatRes = 'json'
+        ans = self._post(keywords, formatRes, market, "Video")
         return ans.json()
