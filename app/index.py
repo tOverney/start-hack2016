@@ -69,11 +69,6 @@ def result(request):
     translated = LanguageTranslation().translate(text, dest_lang)
     keywords = selectKeywords(TextBlob(translated).noun_phrases, 4)
 
-    audiodata = API.text_to_speech.synthesize(translated)
-    audio_id = str(uuid4())
-    with open(audio_id, 'wb') as out:
-        out.write(audiodata)
-
     market = languagesBing[dest_lang]
 
     relatedArticles = SearchRelatedNews().get(keywords, market)
@@ -91,8 +86,6 @@ def result(request):
     context['transnouns'] = [noun if ' ' not in noun
                              else noun.split(' ')
                              for noun in context['transnouns']]
-
-    context['audio_id'] = audio_id
 
     for noun in context['transnouns']:
         if isinstance(noun, list):
@@ -132,7 +125,13 @@ def selectKeywords(words, nb):
 
 def audio(request):
     response = HttpResponse(content_type='audio/x-wav')
-    uuid = request.path.split('/')[-1]
+    text = request.POST['text']
+
+    audiodata = API.text_to_speech.synthesize(text)
+
+    uuid = str(uuid4())
+    with open(uuid, 'wb') as out:
+        out.write(audiodata)
 
     with open(uuid, 'rb') as file:
         response.write(file.read())

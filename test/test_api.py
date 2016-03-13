@@ -22,7 +22,7 @@ class ApiTest(unittest.TestCase):
         self.api.text_to_speech.synthesize('Hello my friend')
 
     def test_insight_search(self):
-        ret = self.api.text_insight.search("aes")
+        ret = self.api.text_insight.label_search("aes")
 
         self.assertGreaterEqual(len(ret), 1)
 
