@@ -1,3 +1,4 @@
+import re
 from random import shuffle
 from uuid import uuid4
 
@@ -75,8 +76,23 @@ def result(request):
     relatedArticles = [{'title': article.title,
                         'text': article.text,
                         'url': article.url,
+                        'nouns': TextBlob(article.text).noun_phrases,
                         'image': article.top_img if article.top_img else '/app/static/images/defaultpaper.jpg',
                         } for article in relatedArticles]
+
+    for a in relatedArticles:
+        acc = []
+        for noun in a['nouns']:
+            if isinstance(noun, list):
+                pass
+                #shuffle(noun)
+                #acc += noun[0]
+            else:
+                acc.append(noun)
+        a['nouns'] = acc
+        print(a['nouns'])
+        for noun in a['nouns']:
+            a['text'] = a['text'].replace(" " + noun + " ", " <b>" + noun + "</b> ")
 
     context = {'title': article.title,
                'author': (" % ").join(article.authors), 'text': text,
@@ -87,9 +103,8 @@ def result(request):
                              else noun.split(' ')
                              for noun in context['transnouns']]
 
-    for noun in context['transnouns']:
-        if isinstance(noun, list):
-            shuffle(noun)
+
+
 
     if request.is_ajax():
         t = loader.select_template(["articles.html"])

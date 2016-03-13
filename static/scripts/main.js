@@ -33,7 +33,7 @@ $("#url-form").on('submit', function(e) {
 
 $('body').on('click', '.fill-div', function(e) {
   e.preventDefault();e.stopPropagation();
-  $("#article_text").text($(this).attr('data-text'));
+  $("#article_text").html($(this).attr('data-text'));
   $("#article_title").text($(this).attr('data-title'));
   $("#article_image").attr('src', $(this).attr('data-image'));
   $("#player").hide();
