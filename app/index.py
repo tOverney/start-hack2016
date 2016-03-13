@@ -123,6 +123,7 @@ def selectKeywords(words, nb):
     return keys
 
 
+@csrf_exempt
 def audio(request):
     if 'text' in request.POST:
         text = request.POST['text']
@@ -139,8 +140,6 @@ def audio(request):
             return HttpResponseBadRequest()
 
         uuid = request.GET['audio_id']
-        print(uuid)
-
         try:
             with open(uuid, 'rb') as file:
                 response.write(file.read())
