@@ -56,3 +56,24 @@ body {
 .logohome {
     padding-bottom: 20px;
 }
+
+.article {
+    margin-top: 50px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.titlegrid {
+    font-size: 18;
+    font-style: normal;
+    font-weight: bold;
+    background-color: #2eb397;
+    color: white;
+    font-size-adjust: auto;
+    padding: 15px;
+    height: 150px;    
+}
+
+.ligne {
+    margin-bottom: 30px;
+}
