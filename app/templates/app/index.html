@@ -44,7 +44,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img class="logo" src="{% static "images/logo.png" %}" style="height:40px;"></a>
+            <a class="navbar-brand" href="/"><img class="logo" src="{% static "images/logohome.png" %}" style="height:40px;"></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -60,7 +60,11 @@
     <div class="starter-template">
         <div class="intro">
             <img class="logo" src="{% static "images/logo.png" %}">
+            <br>
+            <br>
             <h1>Learn a language with Carousel !</h1>
+            <br>
+            <br>
             <p>You want to learn about a specific article? You want to learn a new language aswell?<br />
                 Give us the url of an article in your mother tongue and we'll find you
                 Articles on that topic in the language you want to learn!<br />
@@ -78,7 +82,7 @@
                 {% endfor %}
             </select>
             {% csrf_token %}
-            <input type="submit" class="btn btn-default" value="Study"/>
+            <input type="submit" class="button" value="Study"/>
         </form>
         <div id="article_template">
 

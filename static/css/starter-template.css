@@ -4,6 +4,7 @@ body {
 .starter-template {
   padding: 40px 15px;
   text-align: center;
+    padding-bottom: 60px;
 }
 
 .center-input {
@@ -36,4 +37,18 @@ body {
 
 .socialsmall {
     height: 20px;
+}
+
+.intro {
+    padding-bottom: 60px;
+}
+
+.button {
+    background: #1d705e;
+    border-radius: 30px;
+    margin: 40px;
+    padding: 20px;
+    border: 0px;
+    
+    
 }
